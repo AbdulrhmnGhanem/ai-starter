@@ -1,0 +1,86 @@
+{
+  "name": "ai-starter",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+      "plugins": "zsh-autosuggestions",
+      "omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions"
+    },
+    "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.13",
+      "installTools": false
+    },
+    "ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "upgradePackages": true,
+      "packages": [
+        "gh",
+        "git-delta",
+        "git-secret",
+        "lshw",
+        "neovim",
+        "sudo",
+      ]
+    },
+  },
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  "remoteEnv": {
+    "DEVCONTAINER": "true",
+    "UV_LINK_MODE": "copy",
+    "COMPOSE_BAKE": "true",
+    "TZ": "Africa/Cairo",
+    "PRE_COMMIT_HOME": ".hooks",
+    "NVIDIA_VISIBLE_DEVICES": "all",
+    "NVIDIA_DRIVER_CAPABILITIES": "compute,utility"
+  },
+  "hostRequirements": {
+    "gpu": true
+  },
+  "mounts": [
+    "source=ollama-bin,target=/usr/local/ollama,type=volume",
+    "source=ollama-data,target=/usr/local/ollama,type=volume"
+  ],
+  "runArgs": [
+    "--gpus=all"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".hooks": true,
+          "**/__pycache__": true,
+          "**/.mypy_cache": true,
+          "**/.pytest_cache": true,
+          "**/.ruff_cache": true,
+          "**/.venv": true,
+        },
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "always"
+          }
+        },
+        "python.terminal.activateEnvironment": true,
+        "python.defaultInterpreterPath": ".venv/bin/python3",
+        "python.testing.pytestArgs": [
+          "tests"
+        ],
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.scrollback": 10000
+      },
+      "extensions": [
+        "aaron-bond.better-comments",
+        "charliermarsh.ruff",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-containers",
+        "ms-python.mypy-type-checker",
+        "ms-python.python",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  }
+}
