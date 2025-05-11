@@ -25,5 +25,10 @@ echo "Configuring ipython alias..."
 echo "alias ipy='ipython'" >> $HOME/.zshrc
 
 # 6. Install ollama
-echo "Installing ollama..."
-curl -fsSL https://ollama.com/install.sh | sh
+echo "Checking for Ollama installation..."
+if [ ! -d "/usr/local/ollama" ]; then
+    echo "Installing ollama..."
+    curl -fsSL https://ollama.com/install.sh | sh
+else
+    echo "Ollama already installed, skipping installation."
+fi
