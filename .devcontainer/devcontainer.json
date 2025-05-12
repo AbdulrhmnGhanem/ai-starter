@@ -37,10 +37,7 @@
   "hostRequirements": {
     "gpu": true
   },
-  "mounts": [
-    "source=ollama-bin,target=/usr/local/ollama,type=volume",
-    "source=ollama-data,target=/home/vscode/.ollama,type=volume"
-  ],
+  "mounts": [],
   "runArgs": [
     "--gpus=all"
   ],
